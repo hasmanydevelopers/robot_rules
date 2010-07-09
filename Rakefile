@@ -6,9 +6,9 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "robot_rules"
     gem.summary = %Q{A tool to determine if the robots.txt would prevent a given user agent from making a request to a given URI.}
-    gem.email = "jeremy.n.friesen@gmail.com"
-    gem.homepage = "http://github.com/jeremyf/robot_rules"
-    gem.authors = ["James Edward Gray II", "Jeremy Friesen"]
+    gem.email = "edgargonzalez@gmail.com"
+    gem.homepage = "http://github.com/hasmanydevelopers/robot_rules"
+    gem.authors = ["James Edward Gray II", "Jeremy Friesen", "Edgar Gonzalez"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
