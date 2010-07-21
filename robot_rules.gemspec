@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{robot_rules}
-  s.version = "0.9.1"
+  s.version = "0.9.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Edward Gray II", "Jeremy Friesen", "Edgar Gonzalez"]
-  s.date = %q{2010-07-09}
+  s.date = %q{2010-07-21}
   s.email = %q{edgargonzalez@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -42,9 +42,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<addressable>, [">= 2.1.2"])
     else
+      s.add_dependency(%q<addressable>, [">= 2.1.2"])
     end
   else
+    s.add_dependency(%q<addressable>, [">= 2.1.2"])
   end
 end
 
