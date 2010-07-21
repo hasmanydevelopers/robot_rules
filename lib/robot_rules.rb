@@ -41,7 +41,7 @@ class RobotRules
          if $1.empty?
            current << nil
          else
-           disallow = URI.parse($1)
+           disallow = Addressable::URI.parse($1)
 
            next unless disallow.scheme.nil? or disallow.scheme == uri.scheme
            next unless disallow.port.nil?   or disallow.port == uri.port
