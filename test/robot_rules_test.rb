@@ -23,7 +23,7 @@ class RobotRulesTest < Test::Unit::TestCase
     @robot_rule = RobotRules.new('Microsoft')
     robots_txt = %(/robots.txt:\nUser-agent: Microsoft\nDisallow:  google\nUser-agent:  *\nDisallow:    images)
     @robot_rule.parse(File.join(SITE_URL,'robots.txt'), robots_txt)
-    
+
     assert_equal false, @robot_rule.allowed?(File.join(SITE_URL, 'google/hellow_world.txt'))
   end
 
@@ -31,7 +31,27 @@ class RobotRulesTest < Test::Unit::TestCase
     @robot_rule = RobotRules.new('Google')
     robots_txt = %(/robots.txt:\nUser-agent: Microsoft\nDisallow:  google\nUser-agent:  *\nDisallow:    images)
     @robot_rule.parse(File.join(SITE_URL,'robots.txt'), robots_txt)
-    
+
     assert_equal true, @robot_rule.allowed?(File.join(SITE_URL, 'google/hellow_world.txt'))
   end
+
+  def test_should_allow_user_agent_when_disallowed_all_for_specific_user_agent
+    @robot_rule = RobotRules.new('MyBot')
+    robots_txt = "User-agent: mxbot\nDisallow: /"
+    @robot_rule.parse("#{SITE_URL}/robots.txt", robots_txt)
+
+    assert_equal true, @robot_rule.allowed?("#{SITE_URL}/hellow_world")
+  end
+
+  def test_using_uri_as_parameters_should_allow_user_agent_to_specified_path
+    robots_url = Addressable::URI::parse("#{SITE_URL}/robots.txt")
+    url = Addressable::URI::parse("#{SITE_URL}/google/hellow_world.txt")
+    @robot_rule = RobotRules.new('Google')
+    robots_txt = %(/robots.txt:\nUser-agent: Microsoft\nDisallow:  google\nUser-agent:  *\nDisallow:    images)
+    @robot_rule.parse(robots_url, robots_txt)
+
+    assert_equal true, @robot_rule.allowed?(url)
+  end
+
 end
+

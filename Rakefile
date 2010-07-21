@@ -9,6 +9,7 @@ begin
     gem.email = "edgargonzalez@gmail.com"
     gem.homepage = "http://github.com/hasmanydevelopers/robot_rules"
     gem.authors = ["James Edward Gray II", "Jeremy Friesen", "Edgar Gonzalez"]
+    gem.add_dependency('addressable', '>= 2.1.2')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

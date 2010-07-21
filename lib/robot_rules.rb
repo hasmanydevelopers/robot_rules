@@ -5,18 +5,17 @@
 #  Created by James Edward Gray II on 2006-01-31.
 #  Copyright 2006 Gray Productions. All rights reserved.
 
-require "uri"
+require 'addressable/uri'
 
 # Based on Perl's WWW::RobotRules module, by Gisle Aas.
 class RobotRules
    def initialize( user_agent )
-     @user_agent = user_agent.scan(/\S+/).first.sub(%r{/.*},  
-"").downcase
+     @user_agent = user_agent.scan(/\S+/).first.sub(%r{/.*},"").downcase
      @rules      = Hash.new { |rules, rule| rules[rule] = Array.new }
    end
 
-   def parse( text_uri, robots_data )
-     uri      = URI.parse(text_uri)
+   def parse( site, robots_data )
+     uri      = site.kind_of?(Addressable::URI) ? site : Addressable::URI::parse(site)
      location = "#{uri.host}:#{uri.port}"
      @rules.delete(location)
 
@@ -64,8 +63,8 @@ class RobotRules
      end
    end
 
-   def allowed?( text_uri )
-     uri      = URI.parse(text_uri)
+   def allowed?( u )
+     uri      = u.kind_of?(Addressable::URI) ? u : Addressable::URI::parse(u)
      location = "#{uri.host}:#{uri.port}"
      path     = uri.path
 
@@ -74,3 +73,4 @@ class RobotRules
      not @rules[location].any? { |rule| path.index(rule) == 0 }
    end
 end
+
